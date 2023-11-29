@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
@@ -17,42 +19,48 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        String username = ((TextView) findViewById(R.id.email)).getText().toString().trim();
-        String password = ((TextView) findViewById(R.id.password)).getText().toString().trim();
-        Button regBtn = findViewById(R.id.signup_button);
-        Button loginBtn = findViewById(R.id.login_button);
+        TextView username = findViewById(R.id.email); // Username field
+        TextView password = findViewById(R.id.password); // Password field
+        Button regBtn = findViewById(R.id.signup_button); // Register Button
+        Button loginBtn = findViewById(R.id.login_button); // Switch to Login view
 
-        regBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { // password and username validation without regex
-                if(username.length() > 4 && username.length() <= 20){
-                    if(password.length() >= 8){
-                        Toast.makeText(Register.this, "REGISTRATION SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(Register.this, Home.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }, 2000);
-                    }
-                    else{
-                        Toast.makeText(Register.this, "PASSWORD MUST BE 8 CHARACTERS OR MORE", Toast.LENGTH_SHORT).show();
-                    }
+        regBtn.setOnClickListener(view -> { // password and username validation without regex
+
+            // Username and Password are extracted and trimmed
+            String usernameText = username.getText().toString().trim();
+            String passwordText = password.getText().toString().trim();
+            Toast.makeText(Register.this, passwordText, Toast.LENGTH_SHORT).show();
+
+            Pattern p1 = Pattern.compile("[a-zA-z]{4,20}"); // Between 4 and 20 alphabetical letters
+            Pattern p2 = Pattern.compile("[a-zA-z0-9]{8,}"); // At least 8 alphanumerical characters
+
+            // Checking if they match the regex
+            Matcher m1 = p1.matcher(usernameText);
+            Matcher m2 = p2.matcher(passwordText);
+
+            if(m1.matches()){ // Username matches
+                if(m2.matches()){ // Password matches
+                    Toast.makeText(Register.this, "REGISTRATION SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                    // Go to Home Page
+                    new Handler().postDelayed(() -> {
+                        Intent intent = new Intent(Register.this, Home.class);
+                        startActivity(intent);
+                        finish();
+                    }, 2000);
                 }
                 else{
-                    Toast.makeText(Register.this, "USERNAME MUST BE BETWEEN 4 AND 20 CHARACTERS", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "PASSWORD MUST BE 8 CHARACTERS OR MORE (alphanumerical characters)", Toast.LENGTH_SHORT).show();
                 }
+            }
+            else{
+                Toast.makeText(Register.this, "USERNAME MUST BE BETWEEN 4 AND 20 CHARACTERS AND CONTAIN ONLY ALPHABETICAL LETTERS", Toast.LENGTH_SHORT).show();
             }
         });
 
-        loginBtn.setOnClickListener(new View.OnClickListener() { // Switch to login view
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Register.this, Login.class);
-                startActivity(intent);
-            }
+        // Switch to login view
+        loginBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(Register.this, Login.class);
+            startActivity(intent);
         });
 
     }
