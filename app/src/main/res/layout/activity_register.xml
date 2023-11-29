@@ -54,6 +54,7 @@
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
+                android:inputType="textPassword"
                 android:hint="Password"
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
@@ -66,18 +67,42 @@
                 android:id="@+id/signup_button"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/main"
+                android:backgroundTint="#4B87FF"
                 app:cornerRadius = "20dp"/>
-            <TextView
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/loginRedirectText"
-                android:text="Already an user? Login"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loginRedirectText"
+                    android:text="Already an user?"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+                <Button
+                    android:id="@+id/login_button"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="7dp"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="107dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="#004B87FF"
+                    android:textColor="#4B87FF"
+                    android:padding="2dp"
+                    android:text="Login "
+                    android:textSize="18sp"
+                    android:visibility="visible"
+                    app:cornerRadius="20dp"
+                    app:rippleColor="#00FFFFFF"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
 
 
 

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/main"
-    tools:context=".HomeActivity">
+    tools:context=".Login">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -49,6 +49,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:inputType="textPassword"
                 android:id="@+id/password"
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
@@ -67,17 +68,41 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#4B87FF"
                 app:cornerRadius = "20dp"/>
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/signupRedirectText"
-                android:text="Not yet registered? Sign Up"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
+                >
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signupRedirectText"
+                    android:text="Not yet registered?"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+                <Button
+                    android:id="@+id/register"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="5dp"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="107dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="#004B87FF"
+                    android:textColor="#4B87FF"
+                    android:padding="2dp"
+                    android:text="Register"
+                    android:textSize="18sp"
+                    android:visibility="visible"
+                    app:cornerRadius="20dp"
+                    app:rippleColor="#00FFFFFF"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
 
 
         </LinearLayout>

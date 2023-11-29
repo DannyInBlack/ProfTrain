@@ -22,10 +22,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Hello Shady
-        TextView username = (TextView) findViewById(R.id.email);
-        TextView password = (TextView) findViewById(R.id.password);
-        Button loginBtn = (Button) findViewById(R.id.login_button);
+        TextView username = findViewById(R.id.email);// Email field
+        TextView password = findViewById(R.id.password); // Password field
+        Button loginBtn = findViewById(R.id.login_button); // Login Button
+        Button regBtn = findViewById(R.id.register);
 
 
         loginBtn.setOnClickListener(new View.OnClickListener(){
@@ -33,8 +33,10 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 // Username must equal admin
                 // Password must equal 1234
-                if(username.getText().toString().trim().equals("admin") && password.getText().toString().trim().equals("1234")){
+
+                if(username.getText().toString().trim().equals("albert") && password.getText().toString().trim().equals("1234")){
                     // Correct input, show message then move to home page
+
                     Toast.makeText(Login.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -47,8 +49,16 @@ public class Login extends AppCompatActivity {
                 }
                 else{
                     // Incorrect message, show message and do nothing
-                    Toast.makeText(Login.this, "INCORRECT PASSWORD. HINT (admin, 1234)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "INCORRECT PASSWORD. HINT (albert, 1234)", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        regBtn.setOnClickListener(new View.OnClickListener(){ // Switch to register view
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
             }
         });
 
