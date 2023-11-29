@@ -13,16 +13,18 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Hello Doc. Car"
+        android:text="Doc. Car"
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold" />
 
     <pl.droidsonroids.gif.GifImageView
+        android:layout_width="96dp"
+        android:layout_height="85dp"
         android:layout_below="@id/main_text"
+        android:layout_marginTop="-123dp"
+        android:layout_marginEnd="-99dp"
         android:layout_toStartOf="@id/main_text"
-        android:layout_width="38dp"
-        android:layout_height="60dp"
         android:src="@drawable/car"
         tools:layout_editor_absoluteX="186dp"
         tools:layout_editor_absoluteY="275dp" />

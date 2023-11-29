@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/main"
-    tools:context=".Login">
+    tools:context=".HomeActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                 android:id="@+id/login_button"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/main"
+                android:backgroundTint="#4B87FF"
                 app:cornerRadius = "20dp"/>
             <TextView
                 android:layout_width="wrap_content"
