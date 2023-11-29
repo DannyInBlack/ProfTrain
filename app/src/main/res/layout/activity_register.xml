@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/main"
-    tools:context=".SignUpActivity">
+    tools:context=".Register">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -48,9 +48,9 @@
                 android:textColor="@color/main" />
 
             <EditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/password"
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
