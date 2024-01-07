@@ -51,14 +51,14 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:inputType="textPassword"
-                android:hint="Password"
+                android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/main"/>
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textColor="@color/main" />
 
             <Button
                 android:layout_width="match_parent"
