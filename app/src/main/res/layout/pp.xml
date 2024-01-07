@@ -125,7 +125,8 @@
         android:textSize="18sp"
         app:cornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="658dp" />
+        tools:layout_editor_absoluteY="658dp"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
