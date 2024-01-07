@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "977817718805",
+    "project_id": "doc-car",
+    "storage_bucket": "doc-car.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977817718805:android:452f2fce65a1d4b8537e1c",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4cEy0JTxF3XEO0g0Xj38HL9ycaUCdbvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
