@@ -10,10 +10,13 @@ import androidx.work.WorkRequest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
 
 public class Home extends AppCompatActivity {
 
@@ -23,6 +26,19 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        ImageView image = findViewById(R.id.imageView);
+        image.setOnClickListener(view -> {
+            Intent intent = new Intent(Home.this, Profile.class);
+            startActivity(intent);
+            finish();
+        });
+        Button connectBtn = findViewById(R.id.connect_button);
+        connectBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(Home.this, Profile.class);
+            startActivity(intent);
+            finish();
+        });
 
         WorkRequest workRequest = new OneTimeWorkRequest.Builder(NetworkManager.class).build();
         workManager.enqueue(workRequest);
