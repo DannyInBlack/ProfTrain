@@ -33,7 +33,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    WorkManager workManager = WorkManager.getInstance(Login.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,23 +51,7 @@ public class Login extends AppCompatActivity {
             }
         }
 
-        WorkRequest workRequest = new OneTimeWorkRequest.Builder(NetworkManager.class).build();
-        workManager.enqueue(workRequest);
 
-        workManager.getWorkInfoByIdLiveData(workRequest.getId()).observe(this, workInfo -> {
-           if(workInfo.getState() == WorkInfo.State.SUCCEEDED){
-
-               Log.d("Work Data", workInfo.getOutputData().toString());
-               boolean connected = workInfo.getOutputData().getBoolean("Connected", false);
-               Log.d("Connection status", String.valueOf(connected));
-               if(connected){
-                   showNotification("Connection Status", "You are connected");
-               }
-               else{
-                   showNotification("Connection Status", "You are not connected");
-               }
-           }
-        });
 
 
         loginBtn.setOnClickListener(view -> {
@@ -107,35 +90,5 @@ public class Login extends AppCompatActivity {
 
     }
 
-    private void showNotification(String title, String message) {
-        String channelId = "wifi_channel";
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
-                .setSmallIcon(R.drawable.car_icon)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelId);
-            if(notificationChannel == null){
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-                notificationChannel = new NotificationChannel(channelId, "Network Check", importance);
-                notificationChannel.setLightColor(Color.GREEN);
-                notificationChannel.enableVibration(true);
-                notificationManager.createNotificationChannel(notificationChannel);
-            }
-
-
-        }
-
-
-
-        notificationManager.notify(0, builder.build());
-
-
-
-    }
 }
