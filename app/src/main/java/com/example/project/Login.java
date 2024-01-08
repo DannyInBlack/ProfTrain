@@ -2,11 +2,22 @@ package com.example.project;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
+import android.Manifest;
+import android.app.NotificationManager;
+import android.app.NotificationChannel;
+import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,16 +25,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 
 public class Login extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    WorkManager workManager = WorkManager.getInstance(Login.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,31 @@ public class Login extends AppCompatActivity {
         TextView password = findViewById(R.id.password); // Password field
         Button loginBtn = findViewById(R.id.login_button); // Login Button
         Button regBtn = findViewById(R.id.register); // Switch to Register View
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if (ActivityCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(Login.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1
+                );
+            }
+        }
+
+        WorkRequest workRequest = new OneTimeWorkRequest.Builder(NetworkManager.class).build();
+        workManager.enqueue(workRequest);
+
+        workManager.getWorkInfoByIdLiveData(workRequest.getId()).observe(this, workInfo -> {
+           if(workInfo.getState() == WorkInfo.State.SUCCEEDED){
+
+               Log.d("Work Data", workInfo.getOutputData().toString());
+               boolean connected = workInfo.getOutputData().getBoolean("Connected", false);
+               Log.d("Connection status", String.valueOf(connected));
+               if(connected){
+                   showNotification("Connection Status", "You are connected");
+               }
+               else{
+                   showNotification("Connection Status", "You are not connected");
+               }
+           }
+        });
 
 
         loginBtn.setOnClickListener(view -> {
@@ -69,6 +104,38 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this, Register.class);
             startActivity(intent);
         });
+
+    }
+
+    private void showNotification(String title, String message) {
+        String channelId = "wifi_channel";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                .setSmallIcon(R.drawable.car_icon)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelId);
+            if(notificationChannel == null){
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                notificationChannel = new NotificationChannel(channelId, "Network Check", importance);
+                notificationChannel.setLightColor(Color.GREEN);
+                notificationChannel.enableVibration(true);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+
+        }
+
+
+
+        notificationManager.notify(0, builder.build());
+
+
 
     }
 }

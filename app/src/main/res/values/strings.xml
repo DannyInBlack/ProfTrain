@@ -3,4 +3,5 @@
     <string name="app_name">Dr. Car</string>
     <string name="text1">Bring your brand new device and look for you diagnosis plug and plug your device directly into it and turn the device on</string>
     <string name="text2">Connect your mobile to your car device via Bluetooth open Bluetooth settings then, search for “Car Diagnose” and tap on it. When it is connected successfully, tap the connect button down below.The device will show you that is connected successfully</string>
+    <string name="title_activity_forgot_password">ForgotPassword</string>
 </resources>
